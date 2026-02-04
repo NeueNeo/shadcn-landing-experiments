@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FadeIn } from "@/components/fade-in";
+import { CountUp } from "@/components/count-up";
 import {
   Accordion,
   AccordionContent,
@@ -79,6 +81,7 @@ function HeroSection() {
     <section className="container mx-auto px-4 md:px-6 py-20 md:py-28 lg:py-36">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Left — copy */}
+        <FadeIn>
         <div className="space-y-8">
           <div className="flex items-center gap-3">
             <Badge variant="outline" className="text-xs font-normal">v2.0 Released</Badge>
@@ -98,7 +101,7 @@ function HeroSection() {
           </div>
           <div className="flex items-center gap-3">
             <Button size="lg" className="gap-2 h-11">
-              Start Building <ArrowRight className="h-4 w-4" />
+              Start Building <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Button>
             <Button variant="ghost" size="lg" className="gap-2 h-11 text-muted-foreground">
               <Play className="h-4 w-4" /> Watch Demo
@@ -106,23 +109,25 @@ function HeroSection() {
           </div>
           <div className="flex items-center gap-8 pt-2">
             <div>
-              <p className="text-2xl font-bold">50K+</p>
+              <p className="text-2xl font-bold"><CountUp value={50000} suffix="+" /></p>
               <p className="text-xs text-muted-foreground">GitHub Stars</p>
             </div>
             <Separator orientation="vertical" className="h-10" />
             <div>
-              <p className="text-2xl font-bold">2M+</p>
+              <p className="text-2xl font-bold"><CountUp value={2000000} suffix="+" delay={0.05} /></p>
               <p className="text-xs text-muted-foreground">Downloads/mo</p>
             </div>
             <Separator orientation="vertical" className="h-10" />
             <div>
-              <p className="text-2xl font-bold">87+</p>
+              <p className="text-2xl font-bold"><CountUp value={87} suffix="+" delay={0.1} /></p>
               <p className="text-xs text-muted-foreground">Components</p>
             </div>
           </div>
         </div>
+        </FadeIn>
 
         {/* Right — terminal card */}
+        <FadeIn delay={0.1}>
         <div className="rounded-xl border bg-card overflow-hidden shadow-xl">
           <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/50">
             <div className="flex gap-1.5">
@@ -158,6 +163,7 @@ function HeroSection() {
             </div>
           </div>
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -170,6 +176,7 @@ function LogoBar() {
   return (
     <section className="border-y">
       <div className="container mx-auto px-4 md:px-6 py-8">
+        <FadeIn>
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
           <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium shrink-0">Trusted by</span>
           <div className="flex flex-wrap items-center gap-x-10 gap-y-3">
@@ -178,6 +185,7 @@ function LogoBar() {
             ))}
           </div>
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -199,6 +207,7 @@ function FeaturesSection() {
     <section id="features" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
       <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-16">
         {/* Left — sticky header */}
+        <FadeIn>
         <div className="lg:sticky lg:top-[6.5rem] lg:self-start space-y-5">
           <Badge variant="outline" className="text-xs">Features</Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight">
@@ -209,14 +218,16 @@ function FeaturesSection() {
             Not another component library. This is your code — we just give you a head start.
           </p>
           <Button variant="outline" className="gap-2 mt-2">
-            View All Features <ArrowRight className="h-4 w-4" />
+            View All Features <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Button>
         </div>
+        </FadeIn>
 
         {/* Right — card grid */}
         <div className="grid sm:grid-cols-2 gap-4">
-          {features.map((f) => (
-            <Card key={f.title} className="border-border/50 hover:border-border transition-colors group">
+          {features.map((f, i) => (
+            <FadeIn key={f.title} delay={i * 0.05}>
+            <Card className="border-border/50 hover:border-border transition-colors group h-full">
               <CardHeader className="pb-2">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted mb-2 group-hover:bg-primary/10 transition-colors">
                   <f.icon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -227,6 +238,7 @@ function FeaturesSection() {
                 <CardDescription className="text-sm leading-relaxed">{f.desc}</CardDescription>
               </CardContent>
             </Card>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -239,6 +251,7 @@ function FeaturesSection() {
 function BentoSection() {
   return (
     <section className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Badge variant="outline" className="mb-4 text-xs">Platform</Badge>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -248,10 +261,12 @@ function BentoSection() {
           Components, blocks, themes, and tooling — all designed to work together.
         </p>
       </div>
+      </FadeIn>
 
       <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
         {/* Wide card */}
-        <Card className="md:col-span-2 border-border/50 overflow-hidden">
+        <FadeIn className="md:col-span-2">
+        <Card className="border-border/50 overflow-hidden h-full">
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Blocks className="h-4 w-4 text-primary" />
@@ -271,9 +286,11 @@ function BentoSection() {
             </div>
           </CardContent>
         </Card>
+        </FadeIn>
 
         {/* Tall card */}
-        <Card className="md:row-span-2 border-border/50 flex flex-col">
+        <FadeIn className="md:row-span-2" delay={0.1}>
+        <Card className="border-border/50 flex flex-col h-full">
           <CardHeader className="flex-1">
             <Paintbrush className="h-4 w-4 text-primary mb-2" />
             <CardTitle className="text-lg">Theming Engine</CardTitle>
@@ -300,9 +317,11 @@ function BentoSection() {
             </div>
           </CardContent>
         </Card>
+        </FadeIn>
 
         {/* Bottom left */}
-        <Card className="border-border/50">
+        <FadeIn delay={0.15}>
+        <Card className="border-border/50 h-full">
           <CardHeader>
             <Terminal className="h-4 w-4 text-primary mb-2" />
             <CardTitle className="text-lg">CLI Tooling</CardTitle>
@@ -311,9 +330,11 @@ function BentoSection() {
             </CardDescription>
           </CardHeader>
         </Card>
+        </FadeIn>
 
         {/* Bottom middle */}
-        <Card className="border-border/50">
+        <FadeIn delay={0.2}>
+        <Card className="border-border/50 h-full">
           <CardHeader>
             <Globe className="h-4 w-4 text-primary mb-2" />
             <CardTitle className="text-lg">Multi-Framework</CardTitle>
@@ -322,47 +343,76 @@ function BentoSection() {
             </CardDescription>
           </CardHeader>
         </Card>
+        </FadeIn>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────── HOW IT WORKS (horizontal steps) ─────────────────────────── */
+/* ─────────────────────────── HOW IT WORKS ─────────────────────────── */
 
 function HowItWorksSection() {
   const steps = [
-    { num: "01", title: "Init", desc: "Run the CLI. It detects your stack and sets everything up.", time: "~10s" },
-    { num: "02", title: "Add", desc: "Pick components. Dependencies resolve automatically.", time: "~5s" },
-    { num: "03", title: "Ship", desc: "The code is yours. Customize, compose, deploy.", time: "∞" },
+    { 
+      num: "01", 
+      title: "Initialize your project", 
+      desc: "Run the CLI to set up your project config. It detects your framework, configures paths, and creates your component directory.",
+      code: "npx shadcn@latest init",
+      time: "~10s" 
+    },
+    { 
+      num: "02", 
+      title: "Add components", 
+      desc: "Pick the components you need. The CLI resolves dependencies, installs packages, and copies the source into your project.",
+      code: "npx shadcn@latest add button card dialog",
+      time: "~5s" 
+    },
+    { 
+      num: "03", 
+      title: "Customize & ship", 
+      desc: "The code is yours. Adjust styles, modify behavior, compose components together, and ship your UI with full control.",
+      code: "// It's just React + Tailwind — go wild",
+      time: "∞" 
+    },
   ];
 
   return (
     <section className="border-y bg-muted/30">
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-          <div className="space-y-3">
-            <Badge variant="outline" className="text-xs">How It Works</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Zero to shipped in three steps
-            </h2>
-          </div>
-          <Button variant="outline" className="gap-2 self-start md:self-auto">
-            Read the Docs <BookOpen className="h-4 w-4" />
-          </Button>
+        <FadeIn>
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <Badge variant="outline" className="mb-4">How It Works</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Three steps to production
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            From zero to shipped in minutes, not months.
+          </p>
         </div>
+        </FadeIn>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {steps.map((step) => (
-            <div key={step.num} className="relative">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-4xl font-bold text-muted-foreground/20">{step.num}</span>
-                  <Badge variant="secondary" className="text-xs font-mono">{step.time}</Badge>
-                </div>
-                <h3 className="text-xl font-semibold">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
-              </div>
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {steps.map((step, i) => (
+            <FadeIn key={step.num} delay={i * 0.05}>
+            <div className="flex flex-col h-full">
+              <Card className="flex flex-col h-full border-border/50">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-4xl font-bold text-muted-foreground/30">{step.num}</span>
+                    <Badge variant="secondary" className="text-xs font-mono">{step.time}</Badge>
+                  </div>
+                  <CardTitle className="text-lg">{step.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.desc}</p>
+                  <div className="rounded-md border bg-muted/50 px-3 py-2.5 font-mono text-xs">
+                    <span className="text-muted-foreground">$ </span>
+                    <span>{step.code}</span>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -377,12 +427,12 @@ function CodeComparisonSection() {
     <section id="components" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
       <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-16 items-start">
         {/* Left — code */}
-        <div>
+        <FadeIn>
           <Tabs defaultValue="component" className="w-full">
-            <TabsList className="w-full justify-start bg-transparent border-b rounded-none h-auto p-0 gap-6">
-              <TabsTrigger value="component" className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent px-0 pb-3 text-sm">Component</TabsTrigger>
-              <TabsTrigger value="usage" className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent px-0 pb-3 text-sm">Usage</TabsTrigger>
-              <TabsTrigger value="theme" className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent px-0 pb-3 text-sm">Theme</TabsTrigger>
+            <TabsList variant="line">
+              <TabsTrigger value="component">Component</TabsTrigger>
+              <TabsTrigger value="usage">Usage</TabsTrigger>
+              <TabsTrigger value="theme">Theme</TabsTrigger>
             </TabsList>
 
             <TabsContent value="component" className="mt-6">
@@ -445,9 +495,10 @@ function CodeComparisonSection() {
               </div>
             </TabsContent>
           </Tabs>
-        </div>
+        </FadeIn>
 
         {/* Right — explanation */}
+        <FadeIn>
         <div className="lg:sticky lg:top-[6.5rem] space-y-6">
           <Badge variant="outline" className="text-xs">Developer Experience</Badge>
           <h2 className="text-3xl font-bold tracking-tight leading-tight">
@@ -470,6 +521,7 @@ function CodeComparisonSection() {
             ))}
           </div>
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -494,6 +546,7 @@ function ComparisonSection() {
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-16 items-start">
           {/* Left — header */}
+          <FadeIn>
           <div className="lg:sticky lg:top-[6.5rem] space-y-5">
             <Badge variant="outline" className="text-xs">Why Switch</Badge>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight">
@@ -503,8 +556,10 @@ function ComparisonSection() {
               Traditional component libraries give you a dependency. We give you a codebase.
             </p>
           </div>
+          </FadeIn>
 
           {/* Right — table */}
+          <FadeIn>
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="grid grid-cols-[1fr_80px_80px] gap-4 px-6 py-4 border-b bg-muted/50">
               <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Feature</span>
@@ -529,79 +584,95 @@ function ComparisonSection() {
               </div>
             ))}
           </div>
+          </FadeIn>
         </div>
       </div>
     </section>
   );
 }
 
-/* ─────────────────────────── PRICING (horizontal layout) ─────────────────────────── */
+/* ─────────────────────────── PRICING ─────────────────────────── */
 
 function PricingSection() {
+  const plans = [
+    {
+      name: "Starter",
+      price: "Free",
+      period: "",
+      description: "Perfect for side projects and experiments.",
+      features: ["All components", "Community support", "MIT License", "Unlimited projects"],
+      cta: "Get Started",
+      variant: "outline" as const,
+      popular: false,
+    },
+    {
+      name: "Pro",
+      price: "$19",
+      period: "/month",
+      description: "For teams shipping production applications.",
+      features: ["Everything in Starter", "Premium blocks", "Priority support", "Figma design kit", "Custom themes"],
+      cta: "Start Free Trial",
+      variant: "default" as const,
+      popular: true,
+    },
+    {
+      name: "Enterprise",
+      price: "Custom",
+      period: "",
+      description: "For organizations with advanced needs.",
+      features: ["Everything in Pro", "Custom components", "Dedicated support", "SLA guarantee", "Private registry"],
+      cta: "Contact Sales",
+      variant: "outline" as const,
+      popular: false,
+    },
+  ];
+
   return (
     <section id="pricing" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-        <div className="space-y-3">
-          <Badge variant="outline" className="text-xs">Pricing</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Free to start. Scale when ready.
-          </h2>
-        </div>
-        <p className="text-muted-foreground text-sm max-w-[300px]">
-          All components are MIT licensed and free forever. Pro adds premium blocks, themes, and priority support.
+      <FadeIn>
+      <div className="text-center max-w-2xl mx-auto mb-16">
+        <Badge variant="outline" className="mb-4">Pricing</Badge>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          Simple, transparent pricing
+        </h2>
+        <p className="text-muted-foreground text-lg">
+          Start free. Scale when you&apos;re ready.
         </p>
       </div>
-
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
-        {/* Free */}
-        <Card className="border-border/50 flex flex-col">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Open Source</CardTitle>
-              <span className="text-3xl font-bold">$0</span>
-            </div>
-            <CardDescription>Everything you need to build.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-1 space-y-6">
-            <div className="space-y-2.5">
-              {["87+ components", "CLI tooling", "TypeScript support", "Dark mode", "MIT License", "Community support"].map((f) => (
-                <div key={f} className="flex items-center gap-2.5">
-                  <Check className="h-3.5 w-3.5 text-primary shrink-0" />
-                  <span className="text-sm">{f}</span>
-                </div>
-              ))}
-            </div>
-            <Button variant="outline" className="w-full">Get Started</Button>
-          </CardContent>
-        </Card>
-
-        {/* Pro */}
-        <Card className="border-primary flex flex-col relative">
-          <div className="absolute -top-3 right-6">
-            <Badge className="gap-1 text-xs"><Star className="h-3 w-3" /> Popular</Badge>
-          </div>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Pro</CardTitle>
-              <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold">$19</span>
-                <span className="text-sm text-muted-foreground">/mo</span>
+      </FadeIn>
+      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {plans.map((plan, i) => (
+          <FadeIn key={plan.name} delay={i * 0.05}>
+          <Card className={`relative flex flex-col ${plan.popular ? "border-primary shadow-lg scale-[1.02] transition-shadow duration-300 hover:shadow-[0_0_24px_0px] hover:shadow-primary/40" : "border-border/50"}`}>
+            {plan.popular && (
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <Badge className="gap-1">
+                  <Star className="h-3 w-3" /> Most Popular
+                </Badge>
               </div>
-            </div>
-            <CardDescription>For teams that ship fast.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-1 space-y-6">
-            <div className="space-y-2.5">
-              {["Everything in Open Source", "50+ premium blocks", "Figma design kit", "Custom themes", "Priority support", "Private registries", "Team management"].map((f) => (
-                <div key={f} className="flex items-center gap-2.5">
-                  <Check className="h-3.5 w-3.5 text-primary shrink-0" />
-                  <span className="text-sm">{f}</span>
-                </div>
-              ))}
-            </div>
-            <Button className="w-full">Start Free Trial</Button>
-          </CardContent>
-        </Card>
+            )}
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg">{plan.name}</CardTitle>
+              <div className="flex items-baseline gap-1 pt-2">
+                <span className="text-4xl font-bold">{plan.price}</span>
+                {plan.period && <span className="text-muted-foreground text-sm">{plan.period}</span>}
+              </div>
+              <CardDescription className="pt-1">{plan.description}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-1 space-y-6">
+              <div className="space-y-2.5">
+                {plan.features.map((feature) => (
+                  <div key={feature} className="flex items-center gap-2.5">
+                    <Check className="h-4 w-4 text-primary shrink-0" />
+                    <span className="text-sm">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              <Button variant={plan.variant} className="w-full">{plan.cta}</Button>
+            </CardContent>
+          </Card>
+          </FadeIn>
+        ))}
       </div>
     </section>
   );
@@ -634,10 +705,13 @@ function TestimonialsSection() {
   return (
     <section className="border-y bg-muted/30">
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+        <FadeIn>
         <Badge variant="outline" className="mb-12 text-xs">What People Say</Badge>
+        </FadeIn>
         <div className="space-y-12">
           {testimonials.map((t, i) => (
-            <div key={t.author}>
+            <FadeIn key={t.author} delay={i * 0.05}>
+            <div>
               <blockquote className="text-xl md:text-2xl font-medium leading-relaxed tracking-tight max-w-3xl">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
@@ -652,6 +726,7 @@ function TestimonialsSection() {
               </div>
               {i < testimonials.length - 1 && <Separator className="mt-12" />}
             </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -675,6 +750,7 @@ function FAQSection() {
     <section id="faq" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
       <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-16 items-start">
         {/* Left */}
+        <FadeIn>
         <div className="lg:sticky lg:top-[6.5rem] space-y-5">
           <Badge variant="outline" className="text-xs">FAQ</Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -687,8 +763,10 @@ function FAQSection() {
             <MessageSquare className="h-4 w-4" /> Ask on Discord
           </Button>
         </div>
+        </FadeIn>
 
         {/* Right */}
+        <FadeIn>
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, i) => (
             <AccordionItem key={i} value={`item-${i}`}>
@@ -697,6 +775,7 @@ function FAQSection() {
             </AccordionItem>
           ))}
         </Accordion>
+        </FadeIn>
       </div>
     </section>
   );
@@ -708,6 +787,7 @@ function CTASection() {
   return (
     <section className="border-y">
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+        <FadeIn>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="space-y-3 max-w-lg">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -726,10 +806,11 @@ function CTASection() {
               </Button>
             </div>
             <Button size="lg" className="gap-2">
-              Get Started <ArrowRight className="h-4 w-4" />
+              Get Started <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Button>
           </div>
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -740,6 +821,7 @@ function CTASection() {
 function NewsletterSection() {
   return (
     <section className="container mx-auto px-4 md:px-6 py-20">
+      <FadeIn>
       <div className="rounded-2xl border bg-card p-8 md:p-12">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-3">
@@ -754,6 +836,7 @@ function NewsletterSection() {
           </div>
         </div>
       </div>
+      </FadeIn>
     </section>
   );
 }
@@ -764,6 +847,7 @@ function Footer() {
   return (
     <footer className="border-t">
       <div className="container mx-auto px-4 md:px-6 py-8">
+        <FadeIn>
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -786,6 +870,7 @@ function Footer() {
             <span className="text-xs text-muted-foreground">© 2026 Catalyst</span>
           </div>
         </div>
+        </FadeIn>
       </div>
     </footer>
   );

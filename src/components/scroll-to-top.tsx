@@ -7,6 +7,14 @@ export function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // Prevent browser scroll restoration, always start at top
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+
     const onScroll = () => {
       const scrolled = window.scrollY;
       const nearBottom = scrolled + window.innerHeight >= document.documentElement.scrollHeight - 400;

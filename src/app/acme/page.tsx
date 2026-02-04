@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import { FadeIn } from "@/components/fade-in";
+import { CountUp } from "@/components/count-up";
 import {
   Accordion,
   AccordionContent,
@@ -73,6 +75,7 @@ function HeroSection() {
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32 lg:py-40">
+        <FadeIn>
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto gap-6">
           <Badge variant="secondary" className="gap-1.5">
             <Sparkles className="h-3.5 w-3.5" />
@@ -89,7 +92,7 @@ function HeroSection() {
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
             <Button size="lg" className="gap-2 min-w-[160px]">
-              Start Building <ArrowRight className="h-4 w-4" />
+              Start Building <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Button>
             <Button variant="outline" size="lg" className="gap-2 min-w-[160px]">
               <Github className="h-4 w-4" /> Star on GitHub
@@ -107,6 +110,7 @@ function HeroSection() {
             </div>
           </div>
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -119,12 +123,14 @@ function LogoCloud() {
   return (
     <section className="border-y bg-muted/30">
       <div className="container mx-auto px-4 md:px-6 py-10">
+        <FadeIn>
         <p className="text-center text-sm text-muted-foreground mb-8">Trusted by teams at</p>
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
           {logos.map((name) => (
             <span key={name} className="text-lg font-semibold text-muted-foreground/60">{name}</span>
           ))}
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -134,21 +140,25 @@ function LogoCloud() {
 
 function StatsSection() {
   const stats = [
-    { value: "50K+", label: "GitHub Stars", icon: Star },
-    { value: "2M+", label: "Monthly Downloads", icon: Download },
-    { value: "12K+", label: "Discord Members", icon: Users },
-    { value: "800+", label: "Contributors", icon: GitFork },
+    { value: 50000, suffix: "+", label: "GitHub Stars", icon: Star },
+    { value: 2000000, suffix: "+", label: "Monthly Downloads", icon: Download },
+    { value: 12000, suffix: "+", label: "Discord Members", icon: Users },
+    { value: 800, suffix: "+", label: "Contributors", icon: GitFork },
   ];
 
   return (
     <section className="container mx-auto px-4 md:px-6 py-16 md:py-20">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map((stat) => (
-          <div key={stat.label} className="flex flex-col items-center text-center gap-2">
+        {stats.map((stat, i) => (
+          <FadeIn key={stat.label} delay={i * 0.05}>
+          <div className="flex flex-col items-center text-center gap-2">
             <stat.icon className="h-5 w-5 text-muted-foreground mb-1" />
-            <span className="text-3xl md:text-4xl font-bold tracking-tight">{stat.value}</span>
+            <span className="text-3xl md:text-4xl font-bold tracking-tight">
+              <CountUp value={stat.value} suffix={stat.suffix} delay={i * 0.05} />
+            </span>
             <span className="text-sm text-muted-foreground">{stat.label}</span>
           </div>
+          </FadeIn>
         ))}
       </div>
     </section>
@@ -193,6 +203,7 @@ function FeaturesSection() {
 
   return (
     <section id="features" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Badge variant="outline" className="mb-4">Features</Badge>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -202,9 +213,11 @@ function FeaturesSection() {
           Production-grade components with the flexibility to make them yours.
         </p>
       </div>
+      </FadeIn>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((feature) => (
-          <Card key={feature.title} className="group hover:shadow-md transition-all duration-200 border-border/50 hover:border-border">
+        {features.map((feature, i) => (
+          <FadeIn key={feature.title} delay={i * 0.05}>
+          <Card className="group hover:shadow-md transition-all duration-200 border-border/50 hover:border-border h-full">
             <CardHeader>
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 mb-2 group-hover:bg-primary/15 transition-colors">
                 <feature.icon className="h-5 w-5 text-primary" />
@@ -215,6 +228,7 @@ function FeaturesSection() {
               <CardDescription className="text-sm leading-relaxed">{feature.description}</CardDescription>
             </CardContent>
           </Card>
+          </FadeIn>
         ))}
       </div>
     </section>
@@ -248,6 +262,7 @@ function HowItWorksSection() {
   return (
     <section id="how-it-works" className="border-y bg-muted/30">
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+        <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <Badge variant="outline" className="mb-4">How It Works</Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -257,27 +272,28 @@ function HowItWorksSection() {
             From zero to shipped in minutes, not months.
           </p>
         </div>
-        <div className="max-w-3xl mx-auto space-y-8">
+        </FadeIn>
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {steps.map((step, i) => (
-            <div key={step.step} className="relative flex gap-6 md:gap-8">
-              {/* Connector line */}
-              {i < steps.length - 1 && (
-                <div className="absolute left-5 top-12 bottom-0 w-px bg-border" />
-              )}
-              {/* Step number */}
-              <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-full border bg-background text-sm font-bold">
-                {step.step}
-              </div>
-              {/* Content */}
-              <div className="flex-1 pb-8">
-                <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{step.description}</p>
-                <div className="rounded-lg border bg-card px-4 py-3 font-mono text-sm">
-                  <span className="text-muted-foreground">$ </span>
-                  <span>{step.code}</span>
-                </div>
-              </div>
+            <FadeIn key={step.step} delay={i * 0.05}>
+            <div className="flex flex-col h-full">
+              <Card className="flex flex-col h-full border-border/50">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-4 mb-2">
+                    <span className="text-4xl font-bold text-muted-foreground/30">{step.step}</span>
+                  </div>
+                  <CardTitle className="text-lg">{step.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.description}</p>
+                  <div className="rounded-md border bg-muted/50 px-3 py-2.5 font-mono text-xs">
+                    <span className="text-muted-foreground">$ </span>
+                    <span>{step.code}</span>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -291,6 +307,7 @@ function CodeBlock() {
   return (
     <section className="container mx-auto px-4 md:px-6 py-24 md:py-32">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <FadeIn>
         <div className="space-y-6">
           <Badge variant="outline">Developer Experience</Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -310,6 +327,8 @@ function CodeBlock() {
             ))}
           </div>
         </div>
+        </FadeIn>
+        <FadeIn delay={0.1}>
         <div className="rounded-xl border bg-card overflow-hidden">
           <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/50">
             <div className="flex gap-1.5">
@@ -344,6 +363,7 @@ function CodeBlock() {
             </div>
           </div>
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -369,6 +389,7 @@ function IntegrationsSection() {
 
   return (
     <section className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Badge variant="outline" className="mb-4">Integrations</Badge>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -378,6 +399,8 @@ function IntegrationsSection() {
           First-class support for every major React framework and platform.
         </p>
       </div>
+      </FadeIn>
+      <FadeIn>
       <Tabs defaultValue="frameworks" className="max-w-4xl mx-auto">
         <TabsList className="grid w-full grid-cols-2 max-w-[400px] mx-auto mb-8">
           <TabsTrigger value="frameworks">Frameworks</TabsTrigger>
@@ -422,6 +445,7 @@ function IntegrationsSection() {
           </div>
         </TabsContent>
       </Tabs>
+      </FadeIn>
     </section>
   );
 }
@@ -445,6 +469,7 @@ function ComparisonSection() {
   return (
     <section className="border-y bg-muted/30">
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+        <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <Badge variant="outline" className="mb-4">Comparison</Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -454,6 +479,8 @@ function ComparisonSection() {
             See how we compare to traditional component libraries.
           </p>
         </div>
+        </FadeIn>
+        <FadeIn>
         <div className="max-w-2xl mx-auto">
           <div className="rounded-xl border bg-card overflow-hidden">
             {/* Header */}
@@ -486,6 +513,7 @@ function ComparisonSection() {
             ))}
           </div>
         </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -505,6 +533,7 @@ function ShowcaseSection() {
 
   return (
     <section className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Badge variant="outline" className="mb-4">Components</Badge>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -514,13 +543,17 @@ function ShowcaseSection() {
           From simple buttons to complex data tables — everything you need, nothing you don&apos;t.
         </p>
       </div>
+      </FadeIn>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        {categories.map((cat) => (
-          <Card key={cat.name} className="group border-border/50 hover:border-border transition-all cursor-pointer">
+        {categories.map((cat, i) => (
+          <FadeIn key={cat.name} delay={i * 0.05}>
+          <Card className="group border-border/50 hover:border-border transition-all cursor-pointer">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base">{cat.name}</CardTitle>
-                <Badge variant="secondary" className="text-xs">{cat.count}</Badge>
+                <Badge variant="secondary" className="text-xs">
+                  <CountUp value={cat.count} delay={i * 0.05} />
+                </Badge>
               </div>
             </CardHeader>
             <CardContent>
@@ -530,13 +563,16 @@ function ShowcaseSection() {
               </div>
             </CardContent>
           </Card>
+          </FadeIn>
         ))}
       </div>
+      <FadeIn>
       <div className="text-center mt-10">
         <Button variant="outline" className="gap-2">
-          View All Components <ArrowRight className="h-4 w-4" />
+          View All Components <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
         </Button>
       </div>
+      </FadeIn>
     </section>
   );
 }
@@ -579,6 +615,7 @@ function PricingSection() {
 
   return (
     <section id="pricing" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Badge variant="outline" className="mb-4">Pricing</Badge>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -588,9 +625,11 @@ function PricingSection() {
           Start free. Scale when you&apos;re ready.
         </p>
       </div>
+      </FadeIn>
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {plans.map((plan) => (
-          <Card key={plan.name} className={`relative flex flex-col ${plan.popular ? "border-primary shadow-lg scale-[1.02]" : "border-border/50"}`}>
+        {plans.map((plan, i) => (
+          <FadeIn key={plan.name} delay={i * 0.05}>
+          <Card className={`relative flex flex-col ${plan.popular ? "border-primary shadow-lg scale-[1.02] transition-shadow duration-300 hover:shadow-[0_0_24px_0px] hover:shadow-primary/40" : "border-border/50"}`}>
             {plan.popular && (
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                 <Badge className="gap-1">
@@ -618,6 +657,7 @@ function PricingSection() {
               <Button variant={plan.variant} className="w-full">{plan.cta}</Button>
             </CardContent>
           </Card>
+          </FadeIn>
         ))}
       </div>
     </section>
@@ -663,6 +703,7 @@ function TestimonialsSection() {
   return (
     <section id="testimonials" className="border-y bg-muted/30">
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+        <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <Badge variant="outline" className="mb-4">Testimonials</Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -672,9 +713,11 @@ function TestimonialsSection() {
             Hear from the teams building with our components.
           </p>
         </div>
+        </FadeIn>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {testimonials.map((t) => (
-            <Card key={t.author} className="border-border/50">
+          {testimonials.map((t, i) => (
+            <FadeIn key={t.author} delay={i * 0.05}>
+            <Card className="border-border/50">
               <CardContent className="pt-6">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -693,6 +736,7 @@ function TestimonialsSection() {
                 </div>
               </CardContent>
             </Card>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -705,6 +749,7 @@ function TestimonialsSection() {
 function OpenSourceSection() {
   return (
     <section className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="relative overflow-hidden rounded-2xl border bg-card">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.08),transparent_70%)]" />
         <div className="grid lg:grid-cols-2 gap-8 p-8 md:p-12 lg:p-16">
@@ -732,21 +777,27 @@ function OpenSourceSection() {
             {[
               { label: "This week", commits: 47, prs: 12, issues: 8 },
               { label: "This month", commits: 189, prs: 52, issues: 31 },
-              { label: "All time", commits: "12.4K", prs: "2.8K", issues: "1.5K" },
-            ].map((period) => (
+              { label: "All time", commits: 12400, prs: 2800, issues: 1500 },
+            ].map((period, i) => (
               <div key={period.label} className="rounded-lg border bg-muted/30 px-5 py-4">
                 <p className="text-xs text-muted-foreground mb-3 font-medium uppercase tracking-wider">{period.label}</p>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <p className="text-xl font-bold">{period.commits}</p>
+                    <p className="text-xl font-bold">
+                      <CountUp value={period.commits} delay={i * 0.1} />
+                    </p>
                     <p className="text-xs text-muted-foreground">Commits</p>
                   </div>
                   <div>
-                    <p className="text-xl font-bold">{period.prs}</p>
+                    <p className="text-xl font-bold">
+                      <CountUp value={period.prs} delay={i * 0.1} />
+                    </p>
                     <p className="text-xs text-muted-foreground">PRs Merged</p>
                   </div>
                   <div>
-                    <p className="text-xl font-bold">{period.issues}</p>
+                    <p className="text-xl font-bold">
+                      <CountUp value={period.issues} delay={i * 0.1} />
+                    </p>
                     <p className="text-xs text-muted-foreground">Issues Closed</p>
                   </div>
                 </div>
@@ -755,6 +806,7 @@ function OpenSourceSection() {
           </div>
         </div>
       </div>
+      </FadeIn>
     </section>
   );
 }
@@ -792,6 +844,7 @@ function CommunitySection() {
   return (
     <section className="border-y bg-muted/30">
       <div className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+        <FadeIn>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <Badge variant="outline" className="mb-4">Community</Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -801,9 +854,11 @@ function CommunitySection() {
             A growing community of developers building better interfaces together.
           </p>
         </div>
+        </FadeIn>
         <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {resources.map((r) => (
-            <Card key={r.title} className="group border-border/50 hover:border-border transition-all">
+          {resources.map((r, i) => (
+            <FadeIn key={r.title} delay={i * 0.05}>
+            <Card className="group border-border/50 hover:border-border transition-all">
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/15 transition-colors">
@@ -815,10 +870,11 @@ function CommunitySection() {
               <CardContent className="space-y-3">
                 <CardDescription className="text-sm leading-relaxed">{r.description}</CardDescription>
                 <div className="flex items-center gap-1 text-sm font-medium group-hover:gap-2 transition-all">
-                  {r.cta} <ArrowRight className="h-3.5 w-3.5" />
+                  {r.cta} <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </div>
               </CardContent>
             </Card>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -866,6 +922,7 @@ function FAQSection() {
 
   return (
     <section id="faq" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Badge variant="outline" className="mb-4">FAQ</Badge>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
@@ -875,6 +932,8 @@ function FAQSection() {
           Everything you need to know about the platform.
         </p>
       </div>
+      </FadeIn>
+      <FadeIn>
       <div className="max-w-2xl mx-auto">
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, i) => (
@@ -889,6 +948,7 @@ function FAQSection() {
           ))}
         </Accordion>
       </div>
+      </FadeIn>
     </section>
   );
 }
@@ -898,6 +958,7 @@ function FAQSection() {
 function CTASection() {
   return (
     <section className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+      <FadeIn>
       <div className="relative overflow-hidden rounded-2xl border bg-card p-8 md:p-16">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border)/0.2)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.2)_1px,transparent_1px)] bg-[size:2rem_2rem]" />
         <div className="flex flex-col items-center text-center gap-6 max-w-xl mx-auto">
@@ -910,12 +971,13 @@ function CTASection() {
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
             <Input placeholder="Enter your email" className="h-11" />
             <Button size="lg" className="shrink-0 gap-2">
-              Get Started <ChevronRight className="h-4 w-4" />
+              Get Started <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">Free forever. No credit card required.</p>
         </div>
       </div>
+      </FadeIn>
     </section>
   );
 }
@@ -926,6 +988,7 @@ function Footer() {
   return (
     <footer className="border-t">
       <div className="container mx-auto px-4 md:px-6 py-12">
+        <FadeIn>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
@@ -968,6 +1031,7 @@ function Footer() {
             <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Cookie Policy</a>
           </div>
         </div>
+        </FadeIn>
       </div>
     </footer>
   );
