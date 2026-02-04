@@ -56,10 +56,10 @@ function Navbar() {
             <span className="text-sm font-semibold tracking-tight">Catalyst</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Product</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Docs</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Blog</a>
+            <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
+            <a href="#components" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Components</a>
+            <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
+            <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
           </nav>
         </div>
         <div className="flex items-center gap-2">
@@ -374,7 +374,7 @@ function HowItWorksSection() {
 
 function CodeComparisonSection() {
   return (
-    <section className="container mx-auto px-4 md:px-6 py-24 md:py-32">
+    <section id="components" className="container mx-auto px-4 md:px-6 py-24 md:py-32">
       <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-16 items-start">
         {/* Left — code */}
         <div>
@@ -795,7 +795,7 @@ function Footer() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground" data-theme="indigo">
       <Navbar />
       <HeroSection />
       <LogoBar />
